@@ -7,8 +7,7 @@ import searchIconSrc from '../assets/images/searchicon.png'; // 이미지 경로
 import favoriteIcon from '../assets/images/favoriteIcon.png'; // 즐겨찾기 아이콘 이미지 경로
 import favoriteFilledIcon from '../assets/images/favoriteFilledIcon.png'; // 채워진 즐겨찾기 아이콘 이미지 경로
 import profile from '../assets/images/profile.png'; // 즐겨찾기 아이콘 이미지 경로
-
-const BASE_URL = "http://59.5.40.202:8082";
+import Config from '../components/Config/config';
 
 const Container = styled.div`
   padding: 1vw 10vw;
@@ -276,7 +275,7 @@ const NextButton = styled.button`
 // 제목 검색 통신 코드
 const searchVideos = async (videoTitle) => {
   try {
-    const response = await fetch(`${BASE_URL}/api/v1/community/search-videos`, {
+    const response = await fetch(`${Config.baseURL}/api/v1/community/search-videos`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -299,7 +298,7 @@ const searchVideos = async (videoTitle) => {
 // Filter별 영상 정렬 통신 코드
 const fetchFilteredVideos = async (filter) => {
   try {
-    const response = await fetch(`${BASE_URL}/api/v1/community/filter-videos`, {
+    const response = await fetch(`${Config.baseURL}/api/v1/community/filter-videos`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -322,7 +321,7 @@ const fetchFilteredVideos = async (filter) => {
 // 클릭된 비디오 정보 전송 함수
 const sendVideoInfo = async (memberEmail, videoUrl) => {
   try {
-    const response = await fetch(`${BASE_URL}/api/v1/community/video`, {
+    const response = await fetch(`${Config.baseURL}/api/v1/community/video`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -365,7 +364,7 @@ function Community() {
   useEffect(() => {
   const fetchVideos = async () => {
     try {
-      const response = await fetch(`${BASE_URL}/api/v1/community`, {
+      const response = await fetch(`${Config.baseURL}/api/v1/community`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -394,7 +393,7 @@ function Community() {
     if (!userId) return;
 
     try {
-      const response = await fetch(`${BASE_URL}/api/v1/video/saved-videos`, {
+      const response = await fetch(`${Config.baseURL}/api/v1/video/saved-videos`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -454,7 +453,7 @@ function Community() {
     const fetchLikedVideosFromAPI = async () => {
       const userId = localStorage.getItem('userId');
       try {
-        const response = await fetch(`${BASE_URL}/api/v1/video/saved-videos`, {
+        const response = await fetch(`${Config.baseURL}/api/v1/video/saved-videos`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -482,7 +481,7 @@ function Community() {
   //인기순 정렬 통신코드
 const fetchPopularVideos = async () => {
   try {
-    const response = await fetch(`${BASE_URL}/api/v1/community/popular`, {
+    const response = await fetch(`${Config.baseURL}/api/v1/community/popular`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -503,7 +502,7 @@ const fetchPopularVideos = async () => {
 //최신순 정렬 통신코드
 const fetchLatestVideos = async () => {
   try {
-    const response = await fetch(`${BASE_URL}/api/v1/community/latest`, {
+    const response = await fetch(`${Config.baseURL}/api/v1/community/latest`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -528,7 +527,7 @@ const fetchLatestVideos = async () => {
 const handleVideoClick = async (video) => {
   try {
     // memberEmail과 videoUrl을 서버로 전송
-    const response = await fetch(`${BASE_URL}/api/v1/community/video`, {
+    const response = await fetch(`${Config.baseURL}/api/v1/community/video`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -614,8 +613,8 @@ const handleVideoClick = async (video) => {
     if (userId) {
       try {
         const url = isCurrentlyFavorited
-          ? `${BASE_URL}/api/v1/video/unlike`
-          : `${BASE_URL}/api/v1/video/like`;
+          ? `${Config.baseURL}/api/v1/video/unlike`
+          : `${Config.baseURL}/api/v1/video/like`;
     
         const method = isCurrentlyFavorited ? 'DELETE' : 'POST';
     
